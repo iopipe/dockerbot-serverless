@@ -3,8 +3,8 @@
   "name": "dockalackaless",
   "description": "Slackbot for commanding Docker containers",
   "memory": 128,
-  "timeout": 5,
-  "role": "arn:aws:iam::554407330061:role/lambda_basic_vpc_execution",
+  "timeout": 60,
+  "role": "arn:aws:iam::858656307604:role/lambda_basic_execution",
   "defaultEnvironment": "dev",
   "environment": {}
 }
