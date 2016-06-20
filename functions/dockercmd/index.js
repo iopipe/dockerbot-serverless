@@ -12,34 +12,35 @@ var dals = new Dockaless({
   key: fs.readFileSync('./cfg/key.pem')
 })
 
-exports.handle = (event, context) => {
-  iopipe.define(
-    (e, c) => {
-      /* Mangle Slack input */
-      console.log(JSON.stringify(e.text))
-      var s = e.text.indexOf(" ")
-      var image = e.text.slice(0, s)
-      var command = e.text.slice(s)
-      c({
-        image: image,
-        command: command
-      })
-    },
-    (e, c) => {
-      /* Run docker image with command */
-      console.log("Running Docker: "+e.image+" "+e.command)
-      dals.make_lambda(e.image, e.command)({ }, iopipe.make_context(c))
-    },
-    (e, c) => {
-      console.log("Formatting slack response")
-      /* Format Slack response */
-      c({response: {
-          text: "docker output:",
-          attachments: {
-            text: e
-          }
+exports.handle = iopipe.define(
+  (e, c) => {
+    /* Mangle Slack input */
+    console.log(JSON.stringify(e.text))
+    var s = e.text.indexOf(" ")
+    var image = e.text.slice(0, s)
+    var command = e.text.slice(s)
+    c({
+      image: image,
+      command: command
+    })
+  },
+  (e, c) => {
+    /* Run docker image with command */
+    console.log("Running Docker: "+e.image+" "+e.command)
+    //dals.make_lambda(e.image, e.command)({ }, iopipe.make_context(c))
+    c(e.image)
+  },
+  (e, c) => {
+    console.log("Formatting slack response")
+    /* Format Slack response */
+    var response = {response: {
+        text: "docker output:",
+        attachments: {
+          text: e
         }
-      })
+      }
     }
-  )(event, context)
-}
+    console.log(response)
+    c(response)
+  }
+)
