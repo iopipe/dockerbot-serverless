@@ -29,7 +29,6 @@ exports.handle = (event, context) => {
       /* Run docker image with command */
       console.log("Running Docker: "+e.image+" "+e.command)
       dals.make_lambda(e.image, e.command)({ }, iopipe.make_context(c))
-      c(e.image)
     },
     (e, c) => {
       console.log("Formatting slack response")
@@ -42,11 +41,5 @@ exports.handle = (event, context) => {
         }
       })
     }
-    //(e, c) => { c(JSON.stringify(e)) }
-    /*require('request')(
-      event.response_url,
-
-    )*/
-    //event.response_url.toString()
-  )(event, iopipe.make_context(context.succeed))
+  )(event, context)
 }
