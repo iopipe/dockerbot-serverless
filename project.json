@@ -1,9 +1,9 @@
 
 {
-  "name": "dockalackaless",
+  "name": "dockerbot-serverless",
   "description": "Slackbot for commanding Docker containers",
   "memory": 128,
-  "timeout": 60,
+  "timeout": 30,
   "role": "arn:aws:iam::858656307604:role/lambda_basic_execution",
   "defaultEnvironment": "dev",
   "environment": {}

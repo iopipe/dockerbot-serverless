@@ -16,17 +16,23 @@ exports.handle = (event, context) => {
   iopipe.define(
     (e, c) => {
       /* Mangle Slack input */
-      var s = e.text.split(" ", 1)
+      console.log(JSON.stringify(e.text))
+      var s = e.text.indexOf(" ")
+      var image = e.text.slice(0, s)
+      var command = e.text.slice(s)
       c({
-        image: s[0],
-        command: s[1]
+        image: image,
+        command: command
       })
     },
     (e, c) => {
       /* Run docker image with command */
-      dals.make_lambda(e.image, e.command)({}, c)
+      console.log("Running Docker: "+e.image+" "+e.command)
+      dals.make_lambda(e.image, e.command)({ }, iopipe.make_context(c))
+      c(e.image)
     },
     (e, c) => {
+      console.log("Formatting slack response")
       /* Format Slack response */
       c({response: {
           text: "docker output:",
@@ -35,13 +41,12 @@ exports.handle = (event, context) => {
           }
         }
       })
-    },
-    (e, c) => { c(JSON.stringify(e)) },
-    event.response_url
-  )(event, context)
-}
-//module.exports = exports.handle
-//exports.handler = exports.handle
+    }
+    //(e, c) => { c(JSON.stringify(e)) }
+    /*require('request')(
+      event.response_url,
 
-// Example usage:
-// exports.handle({ text: "busybox ls" }, iopipe.make_context((e) => { console.log(e) }))
+    )*/
+    //event.response_url.toString()
+  )(event, iopipe.make_context(context.succeed))
+}
