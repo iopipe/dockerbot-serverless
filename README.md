@@ -8,6 +8,11 @@ Usage:
 /docker busybox uname -a
 ```
 
+Developed as a demo & example for the
+[IOpipe](https://github.com/iopipe/iopipe) library,
+which simplifies the development, sharing, and lifecycle-management
+of functional, cross-cloud serverless apps.
+
 ------------
 Installation
 ------------
