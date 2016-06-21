@@ -43,8 +43,7 @@ page.
 10. Click _Slack Commands_.
 11. Click _Add Configuration_.
 12. Under, "Choose a Command", specify the slash-command you would like
-		to trigger this plugin. We recommend ```/docker``` or
-```/docker-run```.
+		to trigger this plugin. We recommend */docker* or */docker-run*.
 13. Paste the "Invoke URL" from AWS API Gateway into Slack's URL field.
 14. Specify _Method_, GET.
 15. Click _Save Integration_.
