@@ -4,9 +4,8 @@ var iopipe = require("iopipe")()
 var Dockaless = require('dockaless')
 
 var dals = new Dockaless({
-  protocol: "https",
-  host: "146.20.68.182",
-  port: 2376,
+  host: "146.20.68.182", // put your IP address here.
+  port: 2376, // or 2375
   ca: fs.readFileSync('./cfg/ca.pem'),
   cert: fs.readFileSync('./cfg/cert.pem'),
   key: fs.readFileSync('./cfg/key.pem')
@@ -27,8 +26,7 @@ exports.handle = iopipe.define(
   (e, c) => {
     /* Run docker image with command */
     console.log("Running Docker: "+e.image+" "+e.command)
-    //dals.make_lambda(e.image, e.command)({ }, iopipe.make_context(c))
-    c(e.image)
+    dals.make_lambda(e.image, ['sh', '-c', e.command])({ }, c)
   },
   (e, c) => {
     console.log("Formatting slack response")
