@@ -1,5 +1,6 @@
 Docker-Slackbot - a serverless Docker slackbot
 ----------------------------------------------
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?maxAge=2592000)](https://gitter.im/iopipe/iopipe)
 
 Easily run Docker from Slack with a /docker command!
 
@@ -7,7 +8,6 @@ Usage:
 ```
 /docker busybox uname -a
 ```
-
 Developed as a demo & example for the
 [IOpipe](https://github.com/iopipe/iopipe) library,
 which simplifies the development, sharing, and lifecycle-management
