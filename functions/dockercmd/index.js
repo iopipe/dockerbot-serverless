@@ -2,7 +2,7 @@ var fs = require("fs")
 var R = require("ramda")
 var iopipe = require("iopipe")()
 var Dockaless = require('dockaless')
-var iopipe_agent = require('iopipe-agent')
+var iopipe_agent = require('iopipe-agent')()
 
 var dals = new Dockaless({
   host: "146.20.68.182", // put your IP address here.

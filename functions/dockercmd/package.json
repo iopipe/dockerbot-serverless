@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "iopipe": "",
-    "iopipe-agent": "0.0.3",
+    "iopipe-agent": "0.0.4",
     "ramda": "",
     "dockaless": ""
   }
