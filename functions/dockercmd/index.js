@@ -2,6 +2,7 @@ var fs = require("fs")
 var R = require("ramda")
 var iopipe = require("iopipe")()
 var Dockaless = require('dockaless')
+var iopipe_agent = require('iopipe-agent')
 
 var dals = new Dockaless({
   host: "146.20.68.182", // put your IP address here.
@@ -11,7 +12,7 @@ var dals = new Dockaless({
   key: fs.readFileSync('./cfg/key.pem')
 })
 
-exports.handle = iopipe.define(
+exports.handle = iopipe_agent(iopipe.define(
   (e, c) => {
     /* Mangle Slack input */
     console.log(JSON.stringify(e.text))
@@ -43,4 +44,4 @@ exports.handle = iopipe.define(
     console.log(response)
     c(response)
   }*/
-)
+))
