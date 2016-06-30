@@ -29,19 +29,4 @@ exports.handle = iopipe_agent(iopipe.define(
     console.log("Running Docker: "+e.image+" "+e.command)
     dals.make_lambda(e.image, ['sh', '-c', e.command])({ }, c)
   }
-  /** The following formats for JSON which is prettier, but
-   *  I've had trouble getting this working with AWS Gateway.
-   *  --ewindisch */
-  /*(e, c) => {
-    console.log("Formatting slack response")
-    var response = {response: {
-        text: "docker output:",
-        attachments: {
-          text: e
-        }
-      }
-    }
-    console.log(response)
-    c(response)
-  }*/
 ))
