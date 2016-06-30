@@ -12,21 +12,23 @@ var dals = new Dockaless({
   key: fs.readFileSync('./cfg/key.pem')
 })
 
-exports.handle = iopipe_agent(iopipe.define(
-  (e, c) => {
-    /* Mangle Slack input */
-    console.log(JSON.stringify(e.text))
-    var s = e.text.indexOf(" ")
-    var image = e.text.slice(0, s)
-    var command = e.text.slice(s)
-    c({
-      image: image,
-      command: command
-    })
-  },
-  (e, c) => {
-    /* Run docker image with command */
-    console.log("Running Docker: "+e.image+" "+e.command)
-    dals.make_lambda(e.image, ['sh', '-c', e.command])({ }, c)
-  }
-))
+exports.handle = iopipe_agent(
+  iopipe.define(
+    (e, c) => {
+      /* Mangle Slack input */
+      console.log(JSON.stringify(e.text))
+      var s = e.text.indexOf(" ")
+      var image = e.text.slice(0, s)
+      var command = e.text.slice(s)
+      c({
+        image: image,
+        command: command
+      })
+    },
+    (e, c) => {
+      /* Run docker image with command */
+      console.log("Running Docker: "+e.image+" "+e.command)
+      dals.make_lambda(e.image, ['sh', '-c', e.command])({ }, c)
+    }
+  )
+)
